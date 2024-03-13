@@ -23,10 +23,21 @@ jobs:
     - name: Development Build
       run: |
         npm run build
-    - name: Deploy to S3
-      uses: jakejarvis/s3-sync-action@master
-      env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        SOURCE_DIR: "build"
+    - name: Beanstalk Deploy
+      # You may pin to the exact commit or the version.
+      # uses: einaregilsson/beanstalk-deploy@18e5b85bd914cabf00fccabe72f60b8757dcd3cb
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        # AWS Access Key
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+        # AWS Secret Key
+        aws_secret_key: "${{ secrets.AWS_SECRET_KEY }}"
+        # AWS Session Token when using temporary security credentials such as when assuming a role in AWS through STS
+        region: ap-southeast-2
+        # Beanstalk application name
+        application_name: frontend
+        # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
+        environment_name: Frontend-env
+        existing_bucket_name: "elasticbeanstalk-ap-southeast-2-675975961674"
+       
+          
