@@ -39,6 +39,6 @@ jobs:
         # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
         environment_name: Frontend-env
         existing_bucket_name: "elasticbeanstalk-ap-southeast-2-675975961674"
-        version_label: "app-${{ steps.format-time.outputs.replaced }}"
+        version_label: "app-${{ github.run_id }}"
        
           
